@@ -10,6 +10,17 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ $talk->title }}
+                    <x-delete-item
+                        :route="route('talks.destroy', ['talk' => $talk])"
+                        text="Delete this talk"
+                    />
+                    <br />
+                    <a
+                        href="{{ route("talks.edit", ["talk" => $talk]) }}"
+                        class="hover:underline"
+                    >
+                        Edit this talk
+                    </a>
                 </div>
             </div>
         </div>
