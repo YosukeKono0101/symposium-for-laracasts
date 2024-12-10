@@ -15,7 +15,9 @@ class TalkController extends Controller
      */
     public function index()
     {
-        return view('talks.index', ['talks' => Auth::user()->talks]);
+        $talks = Auth::user()->talks()->orderBy('created_at', 'desc')->get();
+
+        return view('talks.index', ['talks' => $talks]);
     }
 
     /**
@@ -42,7 +44,7 @@ class TalkController extends Controller
         // Create Talk
         Auth::user()->talks()->create($validated);
 
-        return redirect()->route('talks.index');
+        return redirect()->route('talks.index')->with('status', 'Talk created successfully!');
     }
 
     /**
@@ -76,7 +78,7 @@ class TalkController extends Controller
 
         $talk->update($validated);
 
-        return redirect()->route('talks.show', ['talk' => $talk]);
+        return redirect()->route('talks.show', ['talk' => $talk])->with('status', 'Talk updated successfully!');
     }
 
     /**
