@@ -21,6 +21,14 @@
                         {{ __("Dashboard") }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link
+                        :href="route('talks.index')"
+                        :active="request()->routeIs('talks.index', 'talks.show')"
+                    >
+                        {{ __("Talks") }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -82,7 +90,7 @@
                         viewBox="0 0 24 24"
                     >
                         <path
-                            :class="{'hidden': open, 'inline-flex': ! open }"
+                            :class="{ 'hidden': open, 'inline-flex': !open }"
                             class="inline-flex"
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -90,7 +98,7 @@
                             d="M4 6h16M4 12h16M4 18h16"
                         />
                         <path
-                            :class="{'hidden': ! open, 'inline-flex': open }"
+                            :class="{ 'hidden': !open, 'inline-flex': open }"
                             class="hidden"
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -104,13 +112,20 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="space-y-1 pb-3 pt-2">
             <x-responsive-nav-link
                 :href="route('dashboard')"
                 :active="request()->routeIs('dashboard')"
             >
                 {{ __("Dashboard") }}
+            </x-responsive-nav-link>
+            \
+            <x-responsive-nav-link
+                :href="route('talks.index')"
+                :active="request()->routeIs('talks.index')"
+            >
+                {{ __("Talks") }}
             </x-responsive-nav-link>
         </div>
 
