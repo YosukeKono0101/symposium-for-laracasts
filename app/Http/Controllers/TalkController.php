@@ -52,6 +52,10 @@ class TalkController extends Controller
      */
     public function show(Talk $talk)
     {
+        if ($talk->author->id !== Auth::user()->id) {
+            abort(403);
+        }
+
         return view('talks.show', ['talk' => $talk]);
     }
 
@@ -68,6 +72,10 @@ class TalkController extends Controller
      */
     public function update(Request $request, Talk $talk)
     {
+        if ($talk->author->id !== Auth::user()->id) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'title' => 'required|max:255',
             'length' => '',
@@ -86,7 +94,11 @@ class TalkController extends Controller
      */
     public function destroy(Talk $talk)
     {
-        if ($talk->user_id === Auth::user()->id) {
+
+        if ($talk->author->id !== Auth::user()->id) {
+            abort(403);
+        }
+        if ($talk->author->id === Auth::user()->id) {
             $talk->delete();
         }
 
