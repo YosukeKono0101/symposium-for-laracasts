@@ -22,6 +22,7 @@ class ConferenceFactory extends Factory
         $cfpEndsAt = $startsAt->clone()->subMonths(2);
 
         return [
+            'callingallpapers_id' => fake()->uuid(),
             'title' => fake()->sentence(),
             'location' => fake()->city() . ', ' . fake()->country(),
             'description' => fake()->paragraph(),
