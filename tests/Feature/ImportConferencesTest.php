@@ -32,4 +32,4 @@ test('it updates a conference', function () {
     $first = Conference::first();
     $this->assertEquals($first->title, $data['name']);
     $this->assertEquals(1, Conference::count());
-})->only();
+});
