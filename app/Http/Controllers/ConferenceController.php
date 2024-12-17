@@ -12,7 +12,9 @@ class ConferenceController extends Controller
      */
     public function index()
     {
-        //
+        $conferences = Conference::orderBy('created_at', 'desc')->get();
+
+        return view('conferences.index', ['conferences' => $conferences]);
     }
 
     /**
@@ -28,7 +30,18 @@ class ConferenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'location' => 'required',
+            'starts_at' => 'required|date',
+            'ends_at' => 'required|date',
+            'description' => '',
+            'url' => '',
+        ]);
+
+        Conference::create($validated);
+
+        return redirect()->route('conferences.index')->with('status', 'Conference created successfully!');
     }
 
     /**
@@ -36,7 +49,7 @@ class ConferenceController extends Controller
      */
     public function show(Conference $conference)
     {
-        //
+        return view('conferences.show', ['conference' => $conference]);
     }
 
     /**
@@ -52,7 +65,18 @@ class ConferenceController extends Controller
      */
     public function update(Request $request, Conference $conference)
     {
-        //
+        $conference->update($request->validate([
+            'title' => 'required|max:255',
+            'location' => 'required',
+            'starts_at' => 'required|date',
+            'ends_at' => 'required|date',
+            'cfp_starts_at' => '',
+            'cfp_ends_at' => '',
+            'description' => '',
+            'url' => '',
+        ]));
+
+        return redirect()->back()->with('status', 'Conference updated successfully!');
     }
 
     /**
@@ -60,6 +84,8 @@ class ConferenceController extends Controller
      */
     public function destroy(Conference $conference)
     {
-        //
+        $conference->delete();
+
+        return redirect()->route('conferences.index')->with('status', 'Conference deleted successfully!');
     }
 }
