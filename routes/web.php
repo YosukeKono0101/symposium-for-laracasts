@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ConferenceController;
+use App\Http\Controllers\ConferenceFavoriteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TalkController;
 use App\Models\User;
@@ -27,6 +29,16 @@ Route::middleware('auth')->group(function () {
     Route::get('talks/{talk}/edit', [TalkController::class, 'edit'])->name('talks.edit');
     Route::delete('talks/{talk}', [TalkController::class, 'destroy'])->name('talks.destroy')->can('delete', 'talk');
     Route::post('talks', [TalkController::class, 'store'])->name('talks.store');
+
+    Route::get('conferences', [ConferenceController::class, 'index'])->name('conferences.index');
+
+    Route::post('conferences/{conference}/favorite', [ConferenceFavoriteController::class, 'store'])->name('conferences.favorite');
+    Route::delete('conferences/{conference}/favorite', [ConferenceFavoriteController::class, 'destroy'])->name('conferences.unfavorite');
+
+    Route::get('conferences/{conference}', [ConferenceController::class, 'show'])->name('conferences.show');
+    Route::post('conferences', [ConferenceController::class, 'store'])->name('conferences.store');
+    Route::patch('conferences/{conference}', [ConferenceController::class, 'update'])->name('conferences.update');
+    Route::delete('conferences/{conference}', [ConferenceController::class, 'destroy'])->name('conferences.destroy');
 });
 
 require __DIR__ . '/auth.php';
