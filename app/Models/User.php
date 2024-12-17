@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(Talk::class);
     }
 
+    public function favoritedConferences()
+    {
+        return $this->belongsToMany(Conference::class, 'favorites');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
